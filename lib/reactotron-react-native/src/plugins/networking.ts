@@ -1,5 +1,14 @@
-import XHRInterceptor from "react-native/Libraries/Network/XHRInterceptor"
-import type { ReactotronCore, Plugin } from "reactotron-core-client"
+import rn from "react-native/package.json";
+import type { Plugin, ReactotronCore } from "reactotron-core-client";
+
+const version = Number(rn.version.split(".").at(1));
+
+let XHRInterceptor;
+if (version >= 79) {
+    XHRInterceptor = require("react-native/src/private/inspector/XHRInterceptor");
+} else {
+    XHRInterceptor = require("react-native/Libraries/Network/XHRInterceptor");
+}
 
 /**
  * Don't include the response bodies for images by default.
